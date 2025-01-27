@@ -744,49 +744,21 @@
 <script>
   const line1 = document.getElementById("line1");
   const line2 = document.getElementById("line2");
-  const lightOverlay = document.createElement("div");
-  lightOverlay.className = "torch-animation-light-overlay";
-  line1.appendChild(lightOverlay);
+  const container = document.querySelector(".torch-animation-text-container");
 
-  // Create timeline for complex animation
-  const tl = gsap.timeline({
-    repeat: -1,
-  });
+  const tl = gsap.timeline();
 
-  // Start light from right side of "OUR FINEST"
-  gsap.set(lightOverlay, { x: line1.offsetWidth + 100 });
-
-  // Move light from right to left on first line
-  tl.to(lightOverlay, {
-    x: -100,
-    duration: 2,
-    ease: "power1.inOut",
-  })
-    // Move light to second line
-    .call(() => {
-      line1.removeChild(lightOverlay);
-      line2.appendChild(lightOverlay);
-      gsap.set(lightOverlay, { x: -100 }); // Start from left side of second line
-    })
-    // Move light from left to right on second line
-    .to(lightOverlay, {
-      x: line2.offsetWidth + 100,
-      duration: 2,
-      ease: "power1.inOut",
-      onComplete: () => {
-        // Only change color of "EXPERIENCES"
-        gsap.to(line2, {
-          color: "#BDFF00",
-          duration: 1,
-          delay: 0.5,
-          onComplete: () => {
-            // Reset the color back to original for next iteration
-            gsap.to(line2, {
-              color: "#c3b3b3",
-              duration: 0.5,
-            });
-          },
-        });
-      },
-    });
+  tl.to(line2, {
+    color: "#BDFF00",
+    duration: 1.5,
+    ease: "power2.inOut",
+  }).to(
+    container,
+    {
+      "--gradient-opacity": 0,
+      duration: 1.5,
+      ease: "power2.inOut",
+    },
+    "<"
+  );
 </script>
