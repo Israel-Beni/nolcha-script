@@ -745,7 +745,7 @@
 
   // Create timeline for complex animation
   const tl = gsap.timeline({
-    repeat: 0,
+    repeat: -1,
   });
 
   // Start light from right side of "OUR FINEST"
@@ -774,6 +774,13 @@
           color: "#BDFF00",
           duration: 1,
           delay: 0.5,
+          onComplete: () => {
+            // Reset the color back to original for next iteration
+            gsap.to(line2, {
+              color: "#c3b3b3",
+              duration: 0.5,
+            });
+          },
         });
       },
     });
