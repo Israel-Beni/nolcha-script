@@ -700,27 +700,31 @@
   document.addEventListener("DOMContentLoaded", function () {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Top gradient fade animation
-    gsap.to(".top-gradient", {
-      scrollTrigger: {
-        trigger: ".custom-columns-container",
-        start: "top top",
-        end: "+=300",
-        scrub: true,
-        markers: false,
-      },
-      opacity: 0,
-      ease: "power2.out",
-    });
+    // Top gradient starts visible and fades out over longer distance
+    gsap.fromTo(
+      ".top-gradient",
+      { opacity: 1 }, // Start fully visible
+      {
+        scrollTrigger: {
+          trigger: ".custom-columns-container",
+          start: "top top",
+          end: "+=2000", // Increased from 300 to 600 for longer fade out
+          scrub: true,
+          markers: false,
+        },
+        opacity: 0,
+        ease: "power2.out",
+      }
+    );
 
-    // Bottom gradient animation - revised
+    // Keep bottom gradient animation as is
     gsap.fromTo(
       ".bottom-gradient",
       { opacity: 0 }, // Starting state
       {
         scrollTrigger: {
           trigger: ".custom-columns-container",
-          start: "bottom bottom+=600", // Start when approaching end
+          start: "bottom bottom+=600",
           end: "bottom bottom",
           scrub: true,
           markers: false,
@@ -742,10 +746,10 @@
         trigger: ".custom-columns-container",
         start: "top center",
         end: "bottom center",
-        scrub: 1, // Reduced from 2 for faster response
+        scrub: 1,
         markers: false,
       },
-      y: "-40vh", // Increased from -20vh for more movement
+      y: "-80vh", // Doubled from -40vh for faster movement
       ease: "none",
     });
 
@@ -768,10 +772,10 @@
         trigger: ".custom-columns-container",
         start: "top center",
         end: "bottom center",
-        scrub: 1, // Reduced from 2 for faster response
+        scrub: 1,
         markers: false,
       },
-      y: "-40vh", // Increased from -20vh for more movement
+      y: "-80vh", // Doubled from -40vh for faster movement
       ease: "none",
     });
   });
